@@ -1,0 +1,8 @@
+Input: s = "12"
+Output: 2
+
+Input: s = "226"
+Output: 3
+
+Input: s = "06"
+Output: 0
