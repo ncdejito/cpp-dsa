@@ -1,29 +1,33 @@
-/*
-    Given unsorted array, return length of longest consecutive sequence
-    Ex. nums = [100,4,200,1,3,2] -> 4, longest is [1,2,3,4]
-
-    Store in hash set, only check for longer seq if it's the beginning
-
-    Time: O(n)
-    Space: O(n)
-*/
-
-
-class Solution {
+class Solution
+{
 public:
-    int longestConsecutive(vector<int>& nums) {
-        unordered_set<int>s(nums.begin(), nums.end());
-        int longest = 0;
-        for(auto &n: s){
-            //if this is the start of the sequence
-            if(!s.count(n - 1)){
-                int length = 1; 
-                while(s.count(n + length))
-                    ++length;
-                longest = max(longest, length);
-            } 
+    int longestConsecutive(vector<int> &nums)
+    {
 
+        if (nums.empty())
+            return 0;
+
+        // sort and deduplicate using a set
+        set<int> st(nums.begin(), nums.end());
+        vector<int> nums2(st.begin(), st.end());
+
+        int max_consecutive = 1;
+        int running_count = 1;
+        for (int i = 0; i < nums2.size() - 1; ++i)
+        {
+            // if next item is +1, add to running_count
+            if (nums2[i + 1] == nums2[i] + 1)
+            {
+                ++running_count;
+                cout << running_count << " ";
+            }
+            else
+            {
+                max_consecutive = max(max_consecutive, running_count);
+                running_count = 1; // reset
+            }
         }
-        return longest;
+        max_consecutive = max(max_consecutive, running_count);
+        return max_consecutive;
     }
 };
