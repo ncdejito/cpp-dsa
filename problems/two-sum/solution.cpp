@@ -1,24 +1,14 @@
-class Solution
-{
+class Solution {
 public:
-    vector<int> twoSum(vector<int> &nums, int target)
-    {
-        vector<int> inds = {};
-        int element;
-        int i, j;
-        vector<int>::iterator it;
-        for (; nums.size() > 0;)
-        {
-            i = nums.size() - 1;
-            element = nums.back();
-            nums.pop_back();
-            it = find(nums.begin(), nums.end(), target - element);
-            if (it != nums.end())
-            {
-                inds.push_back(it - nums.begin());
-                inds.push_back(i);
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int> value_index_map;
+        for (int i = 0; i < nums.size(); ++i) {
+            int diff = target - nums[i];
+            if (value_index_map.find(diff) != value_index_map.end()) {
+                return {value_index_map[diff],i};
             }
+            value_index_map.insert({nums[i],i});
         }
-        return inds;
-    }
-};
+        return {};
+        }
+    };
